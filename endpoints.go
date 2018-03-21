@@ -10,8 +10,9 @@ import (
 	"sort"
 	"strings"
 
-	cmds "github.com/ipfs/go-ipfs/commands"
+	cmds "gx/ipfs/QmfAkMSt9Fwzk48QDJecPcwCUjnf2uG7MLnmCGTp4C6ouL/go-ipfs-cmds"
 	corecmds "github.com/ipfs/go-ipfs/core/commands"
+	cmdkit "gx/ipfs/QmceUdzxkimdYsgtX733uNgzf1DLHyBKN6ehGSp85ayppM/go-ipfs-cmdkit"
 	config "github.com/ipfs/go-ipfs/repo/config"
 )
 
@@ -72,7 +73,7 @@ func Endpoints(name string, cmd *cmds.Command) (endpoints []*Endpoint) {
 	if !ignore { // Extract arguments, options...
 		for _, arg := range cmd.Arguments {
 			argType := "string"
-			if arg.Type == cmds.ArgFile {
+			if arg.Type == cmdkit.ArgFile {
 				argType = "file"
 			}
 			arguments = append(arguments, &Argument{
@@ -84,7 +85,7 @@ func Endpoints(name string, cmd *cmds.Command) (endpoints []*Endpoint) {
 		}
 
 		for _, opt := range cmd.Options {
-			def := fmt.Sprint(opt.DefaultVal())
+			def := fmt.Sprint(opt.Default())
 			if def == "<nil>" {
 				def = ""
 			}
